@@ -4,30 +4,82 @@ struct TimerBarView: View {
     @Bindable var viewModel: TimerViewModel
 
     var body: some View {
-        HStack(spacing: 12) {
-            TextField("What are you working on?", text: $viewModel.taskDescription)
-                .textFieldStyle(.plain)
-                .font(.system(size: 14))
-                .disabled(viewModel.isRunning)
+        HStack(spacing: 0) {
+            // Task description input
+            HStack(spacing: 10) {
+                TextField("What are you working on?", text: $viewModel.taskDescription)
+                    .textFieldStyle(.plain)
+                    .font(.system(size: 14))
+                    .foregroundStyle(TogglTheme.textPrimary)
+                    .disabled(viewModel.isRunning)
 
-            Text(viewModel.formattedElapsedTime)
-                .font(.system(size: 14, weight: .medium).monospacedDigit())
-                .foregroundStyle(viewModel.isRunning ? Color.green : Color.secondary)
-                .frame(minWidth: 70, alignment: .trailing)
-
-            Button(action: { viewModel.toggle() }) {
-                Image(systemName: viewModel.isRunning ? "stop.fill" : "play.fill")
-                    .foregroundStyle(viewModel.isRunning ? Color.green : Color.accentColor)
-                    .font(.system(size: 16))
+                if viewModel.isRunning {
+                    Text(viewModel.taskDescription.isEmpty ? "No description" : "")
+                        .font(.system(size: 14))
+                        .foregroundStyle(TogglTheme.textTertiary)
+                }
             }
-            .buttonStyle(.plain)
-            .help(viewModel.isRunning ? "Stop timer" : "Start timer")
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            Spacer()
+
+            // Right side: icon group + timer + stop button
+            HStack(spacing: 16) {
+                // Icon group
+                HStack(spacing: 12) {
+                    iconButton("folder", tooltip: "Project")
+                    iconButton("tag", tooltip: "Tags")
+                    iconButton("dollarsign.circle", tooltip: "Billable")
+                }
+                .padding(.trailing, 8)
+
+                // Timer display
+                Text(viewModel.formattedElapsedTime)
+                    .font(.system(size: 20, weight: .medium).monospacedDigit())
+                    .foregroundStyle(viewModel.isRunning ? TogglTheme.textPrimary : TogglTheme.textSecondary)
+                    .frame(minWidth: 100, alignment: .trailing)
+
+                // Play/Stop button
+                Button(action: { viewModel.toggle() }) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(viewModel.isRunning ? TogglTheme.timerStopButton : TogglTheme.accentPink)
+                            .frame(width: 36, height: 36)
+
+                        Image(systemName: viewModel.isRunning ? "stop.fill" : "play.fill")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundStyle(.white)
+                    }
+                }
+                .buttonStyle(.plain)
+                .help(viewModel.isRunning ? "Stop timer" : "Start timer")
+
+                // More options
+                Button(action: {}) {
+                    Image(systemName: "ellipsis")
+                        .font(.system(size: 14))
+                        .foregroundStyle(TogglTheme.textTertiary)
+                }
+                .buttonStyle(.plain)
+            }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
-        .background(Color(nsColor: .windowBackgroundColor))
+        .padding(.horizontal, 20)
+        .padding(.vertical, 14)
+        .background(TogglTheme.timerBarBackground)
         .overlay(alignment: .bottom) {
-            Divider()
+            Rectangle()
+                .fill(TogglTheme.divider)
+                .frame(height: 1)
         }
+    }
+
+    private func iconButton(_ systemName: String, tooltip: String) -> some View {
+        Button(action: {}) {
+            Image(systemName: systemName)
+                .font(.system(size: 14))
+                .foregroundStyle(TogglTheme.textTertiary)
+        }
+        .buttonStyle(.plain)
+        .help(tooltip)
     }
 }

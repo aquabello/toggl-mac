@@ -1,13 +1,12 @@
 import Foundation
-import Carbon.HIToolbox
 
 enum AppConstants {
     static let appName = "TogglMac"
     static let defaultTaskDescription = "제목 없음"
 
     enum Hotkey {
-        static let toggleTimerKeyCode: UInt32 = UInt32(kVK_ANSI_T)
-        static let toggleTimerModifiers: UInt32 = UInt32(cmdKey | controlKey)
+        static let toggleTimerKeyCode: UInt32 = 17  // kVK_ANSI_T
+        static let toggleTimerModifiers: UInt32 = 4352  // cmdKey | controlKey
     }
 
     enum Calendar {

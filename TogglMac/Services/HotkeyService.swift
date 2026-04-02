@@ -1,56 +1,48 @@
-import Foundation
-import Carbon.HIToolbox
+import SwiftUI
 
 class HotkeyService {
-    private var hotkeyRef: EventHotKeyRef?
+    private var globalMonitor: Any?
+    private var localMonitor: Any?
     private var onToggle: (() -> Void)?
-
-    static var shared: HotkeyService?
-
-    init() {
-        HotkeyService.shared = self
-    }
 
     func register(onToggle: @escaping () -> Void) {
         self.onToggle = onToggle
 
-        var hotKeyID = EventHotKeyID()
-        hotKeyID.signature = OSType(0x544D_4143) // "TMAC"
-        hotKeyID.id = 1
+        globalMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            self?.handleKeyEvent(event)
+        }
 
-        var eventType = EventTypeSpec()
-        eventType.eventClass = OSType(kEventClassKeyboard)
-        eventType.eventKind = UInt32(kEventHotKeyPressed)
+        localMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            if self?.handleKeyEvent(event) == true {
+                return nil
+            }
+            return event
+        }
+    }
 
-        InstallEventHandler(
-            GetApplicationEventTarget(),
-            { _, _, _ -> OSStatus in
-                HotkeyService.shared?.onToggle?()
-                return noErr
-            },
-            1,
-            &eventType,
-            nil,
-            nil
-        )
+    @discardableResult
+    private func handleKeyEvent(_ event: NSEvent) -> Bool {
+        let requiredFlags: NSEvent.ModifierFlags = [.control, .command]
+        let keyCode: UInt16 = 17 // T key
 
-        let keyCode = AppConstants.Hotkey.toggleTimerKeyCode
-        let modifiers = AppConstants.Hotkey.toggleTimerModifiers
-
-        RegisterEventHotKey(
-            keyCode,
-            modifiers,
-            hotKeyID,
-            GetApplicationEventTarget(),
-            0,
-            &hotkeyRef
-        )
+        if event.keyCode == keyCode &&
+           event.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(requiredFlags) {
+            DispatchQueue.main.async { [weak self] in
+                self?.onToggle?()
+            }
+            return true
+        }
+        return false
     }
 
     func unregister() {
-        if let ref = hotkeyRef {
-            UnregisterEventHotKey(ref)
-            hotkeyRef = nil
+        if let monitor = globalMonitor {
+            NSEvent.removeMonitor(monitor)
+            globalMonitor = nil
+        }
+        if let monitor = localMonitor {
+            NSEvent.removeMonitor(monitor)
+            localMonitor = nil
         }
     }
 }

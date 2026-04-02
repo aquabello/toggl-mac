@@ -1,0 +1,335 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1775108683399,
+  "projectRoot": "/Users/nhn/Documents/70_ai/toggl-mac",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {},
+  "hotPaths": [
+    {
+      "path": "specs/001-calendar-timer/spec.md",
+      "accessCount": 25,
+      "lastAccessed": 1775119948856,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Views/MainWindow/ContentView.swift",
+      "accessCount": 18,
+      "lastAccessed": 1775124006257,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/ViewModels/TimerViewModel.swift",
+      "accessCount": 9,
+      "lastAccessed": 1775122311726,
+      "type": "file"
+    },
+    {
+      "path": "Package.swift",
+      "accessCount": 9,
+      "lastAccessed": 1775123585250,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Models/TimeEntry.swift",
+      "accessCount": 8,
+      "lastAccessed": 1775121952741,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Utilities/DateHelpers.swift",
+      "accessCount": 8,
+      "lastAccessed": 1775122176946,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/App/TogglMacApp.swift",
+      "accessCount": 8,
+      "lastAccessed": 1775122181630,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Utilities/Constants.swift",
+      "accessCount": 8,
+      "lastAccessed": 1775123246979,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/App/AppDelegate.swift",
+      "accessCount": 8,
+      "lastAccessed": 1775123575232,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Models/Project.swift",
+      "accessCount": 7,
+      "lastAccessed": 1775121894063,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Models/TimerState.swift",
+      "accessCount": 7,
+      "lastAccessed": 1775122037202,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Services/TimeEntryService.swift",
+      "accessCount": 6,
+      "lastAccessed": 1775121890739,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/ViewModels/TimeEntryViewModel.swift",
+      "accessCount": 6,
+      "lastAccessed": 1775121900433,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Views/Entry/EntryEditPanel.swift",
+      "accessCount": 6,
+      "lastAccessed": 1775122127358,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/Services/TimeEntryServiceTests.swift",
+      "accessCount": 5,
+      "lastAccessed": 1775120566562,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Services/TimerService.swift",
+      "accessCount": 5,
+      "lastAccessed": 1775121953636,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Views/MainWindow/TimerBarView.swift",
+      "accessCount": 5,
+      "lastAccessed": 1775122021122,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Views/Project/ProjectEditView.swift",
+      "accessCount": 5,
+      "lastAccessed": 1775122156273,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Utilities/ColorExtension.swift",
+      "accessCount": 4,
+      "lastAccessed": 1775121866282,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/ViewModels/CalendarViewModel.swift",
+      "accessCount": 4,
+      "lastAccessed": 1775121948697,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Views/Project/ProjectListView.swift",
+      "accessCount": 4,
+      "lastAccessed": 1775122147410,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/Services/TimerServiceTests.swift",
+      "accessCount": 3,
+      "lastAccessed": 1775120215722,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/Services/ProjectServiceTests.swift",
+      "accessCount": 3,
+      "lastAccessed": 1775120217059,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/ViewModels/ProjectViewModelTests.swift",
+      "accessCount": 3,
+      "lastAccessed": 1775120222414,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/ViewModels/TimeEntryViewModelTests.swift",
+      "accessCount": 3,
+      "lastAccessed": 1775120223039,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/TestHelpers.swift",
+      "accessCount": 3,
+      "lastAccessed": 1775120544814,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/ViewModels/ProjectViewModel.swift",
+      "accessCount": 3,
+      "lastAccessed": 1775121793265,
+      "type": "file"
+    },
+    {
+      "path": "specs/001-calendar-timer/checklists/requirements.md",
+      "accessCount": 2,
+      "lastAccessed": 1775111843116,
+      "type": "file"
+    },
+    {
+      "path": ".specify/memory/constitution.md",
+      "accessCount": 2,
+      "lastAccessed": 1775118615389,
+      "type": "file"
+    },
+    {
+      "path": "specs/001-calendar-timer/plan.md",
+      "accessCount": 2,
+      "lastAccessed": 1775118668607,
+      "type": "file"
+    },
+    {
+      "path": "specs/001-calendar-timer/tasks.md",
+      "accessCount": 2,
+      "lastAccessed": 1775119940526,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/Models/ProjectTests.swift",
+      "accessCount": 2,
+      "lastAccessed": 1775120042117,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/ViewModels/TimerViewModelTests.swift",
+      "accessCount": 2,
+      "lastAccessed": 1775120200996,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/ViewModels/CalendarViewModelTests.swift",
+      "accessCount": 2,
+      "lastAccessed": 1775120438325,
+      "type": "file"
+    },
+    {
+      "path": "TogglMac/Services/ProjectService.swift",
+      "accessCount": 2,
+      "lastAccessed": 1775121797801,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 1,
+      "lastAccessed": 1775108738521,
+      "type": "directory"
+    },
+    {
+      "path": ".specify/templates/constitution-template.md",
+      "accessCount": 1,
+      "lastAccessed": 1775108745273,
+      "type": "file"
+    },
+    {
+      "path": ".claude/commands/speckit.constitution.md",
+      "accessCount": 1,
+      "lastAccessed": 1775108745358,
+      "type": "file"
+    },
+    {
+      "path": ".specify/templates/plan-template.md",
+      "accessCount": 1,
+      "lastAccessed": 1775109449539,
+      "type": "file"
+    },
+    {
+      "path": ".specify/templates/spec-template.md",
+      "accessCount": 1,
+      "lastAccessed": 1775109449931,
+      "type": "file"
+    },
+    {
+      "path": ".specify/templates/tasks-template.md",
+      "accessCount": 1,
+      "lastAccessed": 1775109450467,
+      "type": "file"
+    },
+    {
+      "path": "specs/001-calendar-timer/research.md",
+      "accessCount": 1,
+      "lastAccessed": 1775118711341,
+      "type": "file"
+    },
+    {
+      "path": "specs/001-calendar-timer/data-model.md",
+      "accessCount": 1,
+      "lastAccessed": 1775118731523,
+      "type": "file"
+    },
+    {
+      "path": "specs/001-calendar-timer/quickstart.md",
+      "accessCount": 1,
+      "lastAccessed": 1775118743455,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/Models/TimeEntryTests.swift",
+      "accessCount": 1,
+      "lastAccessed": 1775119869296,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/Models/TimerStateTests.swift",
+      "accessCount": 1,
+      "lastAccessed": 1775119876362,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests/Utilities/DateHelpersTests.swift",
+      "accessCount": 1,
+      "lastAccessed": 1775119887659,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacUITests/TimerFlowTests.swift",
+      "accessCount": 1,
+      "lastAccessed": 1775120043939,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacUITests/EntryEditTests.swift",
+      "accessCount": 1,
+      "lastAccessed": 1775120093315,
+      "type": "file"
+    },
+    {
+      "path": "TogglMacTests",
+      "accessCount": 1,
+      "lastAccessed": 1775120191599,
+      "type": "directory"
+    }
+  ],
+  "userDirectives": []
+}

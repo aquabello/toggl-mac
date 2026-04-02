@@ -15,7 +15,7 @@ struct ManualEntryForm: View {
 
     private var validationError: String? {
         if startTime >= endTime {
-            return "종료 시간은 시작 시간보다 나중이어야 합니다."
+            return "End time must be after start time."
         }
         return nil
     }
@@ -25,63 +25,122 @@ struct ManualEntryForm: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("시간 항목 추가")
-                .font(.headline)
+        VStack(alignment: .leading, spacing: 20) {
+            // Header
+            Text("Add time entry")
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundStyle(TogglTheme.textPrimary)
 
-            Divider()
+            Rectangle()
+                .fill(TogglTheme.divider)
+                .frame(height: 1)
 
-            TextField("업무명", text: $taskDescription)
-                .textFieldStyle(.roundedBorder)
+            // Task description
+            VStack(alignment: .leading, spacing: 6) {
+                Text("DESCRIPTION")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(TogglTheme.textTertiary)
+                    .tracking(0.8)
+                TextField("What did you work on?", text: $taskDescription)
+                    .textFieldStyle(.plain)
+                    .font(.system(size: 13))
+                    .foregroundStyle(TogglTheme.textPrimary)
+                    .togglInput()
+            }
 
-            VStack(alignment: .leading, spacing: 8) {
-                DatePicker("시작 시간", selection: $startTime, displayedComponents: [.date, .hourAndMinute])
-                DatePicker("종료 시간", selection: $endTime, displayedComponents: [.date, .hourAndMinute])
+            // Time pickers
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(spacing: 16) {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("START")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(TogglTheme.textTertiary)
+                            .tracking(0.8)
+                        DatePicker("", selection: $startTime, displayedComponents: [.date, .hourAndMinute])
+                            .labelsHidden()
+                    }
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("END")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(TogglTheme.textTertiary)
+                            .tracking(0.8)
+                        DatePicker("", selection: $endTime, displayedComponents: [.date, .hourAndMinute])
+                            .labelsHidden()
+                    }
+                }
             }
 
             if let error = validationError {
-                Text(error)
-                    .font(.caption)
-                    .foregroundStyle(.red)
+                HStack(spacing: 6) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.system(size: 10))
+                    Text(error)
+                        .font(.system(size: 11))
+                }
+                .foregroundStyle(TogglTheme.accentRed)
             }
 
-            Picker("프로젝트", selection: $selectedProjectId) {
-                Text("프로젝트 없음").tag(nil as UUID?)
-                ForEach(projects) { project in
-                    HStack {
-                        Circle()
-                            .fill(Color(hex: project.colorHex))
-                            .frame(width: 8, height: 8)
-                        Text(project.name)
+            // Project picker
+            VStack(alignment: .leading, spacing: 6) {
+                Text("PROJECT")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(TogglTheme.textTertiary)
+                    .tracking(0.8)
+                Picker("", selection: $selectedProjectId) {
+                    Text("No project").tag(nil as UUID?)
+                    ForEach(projects) { project in
+                        HStack {
+                            Circle()
+                                .fill(Color(hex: project.colorHex))
+                                .frame(width: 8, height: 8)
+                            Text(project.name)
+                        }
+                        .tag(project.id as UUID?)
                     }
-                    .tag(project.id as UUID?)
                 }
+                .labelsHidden()
             }
 
-            Divider()
+            Rectangle()
+                .fill(TogglTheme.divider)
+                .frame(height: 1)
 
+            // Actions
             HStack {
-                Button("취소", action: onCancel)
-                    .keyboardShortcut(.escape, modifiers: [])
-                Spacer()
-                Button("저장") {
-                    attemptSave()
+                Button("Cancel") {
+                    onCancel()
                 }
+                .keyboardShortcut(.escape, modifiers: [])
+                .foregroundStyle(TogglTheme.textSecondary)
+
+                Spacer()
+
+                Button(action: { attemptSave() }) {
+                    Text("Save")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 8)
+                        .background(TogglTheme.accentPink)
+                        .cornerRadius(6)
+                }
+                .buttonStyle(.plain)
                 .keyboardShortcut(.return, modifiers: .command)
                 .disabled(validationError != nil)
             }
         }
-        .padding()
-        .frame(width: 360)
-        .alert("시간 겹침 감지", isPresented: $showOverlapWarning) {
-            Button("취소", role: .cancel) {
+        .padding(24)
+        .frame(width: 400)
+        .background(TogglTheme.backgroundTertiary)
+        .alert("Time overlap detected", isPresented: $showOverlapWarning) {
+            Button("Cancel", role: .cancel) {
                 pendingSave = false
             }
-            Button("계속 저장", role: .destructive) {
+            Button("Save anyway", role: .destructive) {
                 commitSave()
             }
         } message: {
-            Text("선택한 시간대에 이미 다른 항목이 있습니다. 계속 저장하시겠습니까?")
+            Text("There's already an entry in this time range. Save anyway?")
         }
     }
 

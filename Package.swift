@@ -12,7 +12,9 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "TogglMac",
-            path: "TogglMac"
+            path: "TogglMac",
+            linkerSettings: [
+            ]
         ),
         .testTarget(
             name: "TogglMacTests",

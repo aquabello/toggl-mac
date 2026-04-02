@@ -10,19 +10,27 @@ struct ContentView: View {
     @State private var manualEntryStartTime: Date? = nil
 
     var body: some View {
-        HSplitView {
+        HStack(spacing: 0) {
+            // Sidebar
             SidebarView(
                 projectViewModel: projectViewModel,
+                timerViewModel: timerViewModel,
                 onSelectProject: { project in
                     projectViewModel.selectedProject = project
                 }
             )
 
+            Rectangle()
+                .fill(TogglTheme.divider)
+                .frame(width: 1)
+
+            // Main content
             VStack(spacing: 0) {
                 TimerBarView(viewModel: timerViewModel)
-                Divider()
                 CalendarContainerView(
                     calendarViewModel: calendarViewModel,
+                    activeTimerStart: timerViewModel.isRunning ? timerViewModel.currentStartTime : nil,
+                    activeTimerProject: timerViewModel.isRunning ? timerViewModel.selectedProject : nil,
                     onEntryTap: { entry in
                         timeEntryViewModel.selectEntry(entry)
                     },
@@ -32,8 +40,16 @@ struct ContentView: View {
                     }
                 )
             }
+
+            // Right panel (Goals & Favorites)
+            Rectangle()
+                .fill(TogglTheme.divider)
+                .frame(width: 1)
+
+            rightPanel
         }
-        .frame(minWidth: 800, minHeight: 600)
+        .frame(minWidth: 900, minHeight: 600)
+        .background(TogglTheme.backgroundSecondary)
         .overlay(alignment: .trailing) {
             if timeEntryViewModel.isEditingEntry, let entry = timeEntryViewModel.selectedEntry {
                 EntryEditPanel(
@@ -52,8 +68,7 @@ struct ContentView: View {
                         timeEntryViewModel.dismissEdit()
                     }
                 )
-                .background(.background)
-                .shadow(radius: 8)
+                .shadow(color: Color.black.opacity(0.4), radius: 12)
                 .padding(.top, AppConstants.UI.timerBarHeight)
             }
         }
@@ -93,5 +108,87 @@ struct ContentView: View {
             .keyboardShortcut("z", modifiers: .command)
             .hidden()
         )
+    }
+
+    // MARK: - Right Panel (Goals & Favorites)
+
+    private var rightPanel: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            // Goals section
+            HStack {
+                Image(systemName: "chevron.down")
+                    .font(.system(size: 9, weight: .bold))
+                    .foregroundStyle(TogglTheme.textTertiary)
+                Text("Goals")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(TogglTheme.textPrimary)
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 11))
+                        .foregroundStyle(TogglTheme.textTertiary)
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+
+            Button(action: {}) {
+                HStack(spacing: 6) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 11))
+                        .foregroundStyle(TogglTheme.accentPink)
+                    Text("CREATE A GOAL")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundStyle(TogglTheme.accentPink)
+                        .tracking(0.5)
+                }
+            }
+            .buttonStyle(.plain)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
+
+            Rectangle()
+                .fill(TogglTheme.divider)
+                .frame(height: 1)
+                .padding(.horizontal, 12)
+
+            // Favorites section
+            HStack {
+                Image(systemName: "chevron.down")
+                    .font(.system(size: 9, weight: .bold))
+                    .foregroundStyle(TogglTheme.textTertiary)
+                Text("Favorites")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(TogglTheme.textPrimary)
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 11))
+                        .foregroundStyle(TogglTheme.textTertiary)
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+
+            Button(action: {}) {
+                HStack(spacing: 6) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 11))
+                        .foregroundStyle(TogglTheme.accentPink)
+                    Text("ADD FAVORITE")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundStyle(TogglTheme.accentPink)
+                        .tracking(0.5)
+                }
+            }
+            .buttonStyle(.plain)
+            .padding(.horizontal, 16)
+
+            Spacer()
+        }
+        .frame(width: 200)
+        .background(TogglTheme.backgroundSecondary)
     }
 }

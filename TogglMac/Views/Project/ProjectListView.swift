@@ -6,40 +6,45 @@ struct ProjectListView: View {
     let onSelect: (Project?) -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Button(action: { onSelect(nil) }) {
-                HStack {
-                    Circle()
-                        .fill(.gray)
-                        .frame(width: 8, height: 8)
-                    Text("전체")
-                        .font(.subheadline)
-                    Spacer()
-                }
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(selectedProject == nil ? Color.accentColor.opacity(0.1) : Color.clear)
-                .cornerRadius(4)
-            }
-            .buttonStyle(.plain)
+        VStack(alignment: .leading, spacing: 2) {
+            projectRow(
+                color: TogglTheme.textTertiary,
+                name: "All projects",
+                isSelected: selectedProject == nil,
+                action: { onSelect(nil) }
+            )
 
             ForEach(projects) { project in
-                Button(action: { onSelect(project) }) {
-                    HStack {
-                        Circle()
-                            .fill(Color(hex: project.colorHex))
-                            .frame(width: 8, height: 8)
-                        Text(project.name)
-                            .font(.subheadline)
-                        Spacer()
-                    }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(selectedProject?.id == project.id ? Color.accentColor.opacity(0.1) : Color.clear)
-                    .cornerRadius(4)
-                }
-                .buttonStyle(.plain)
+                projectRow(
+                    color: Color(hex: project.colorHex),
+                    name: project.name,
+                    isSelected: selectedProject?.id == project.id,
+                    action: { onSelect(project) }
+                )
             }
         }
+    }
+
+    private func projectRow(color: Color, name: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Circle()
+                    .fill(color)
+                    .frame(width: 8, height: 8)
+                Text(name)
+                    .font(.system(size: 12))
+                    .foregroundStyle(isSelected ? TogglTheme.textPrimary : TogglTheme.textSecondary)
+                Spacer()
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .background(
+                isSelected
+                    ? TogglTheme.surfaceSelected.opacity(0.5)
+                    : Color.clear
+            )
+            .cornerRadius(6)
+        }
+        .buttonStyle(.plain)
     }
 }

@@ -1,15 +1,13 @@
-import AppKit
-import Combine
+import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
-    private var cancellable: AnyCancellable?
+    private var updateTimer: Timer?
     private var hotkeyService: HotkeyService?
 
-    // Set externally by TogglMacApp after viewModel is created
     var timerViewModel: TimerViewModel? {
         didSet {
-            observeViewModel()
+            startUpdateTimer()
         }
     }
 
@@ -20,6 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         hotkeyService?.unregister()
+        updateTimer?.invalidate()
     }
 
     private func setupStatusItem() {
@@ -57,12 +56,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    private func observeViewModel() {
-        cancellable?.cancel()
-        cancellable = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .sink { [weak self] _ in
-                self?.updateStatusItem()
-            }
+    private func startUpdateTimer() {
+        updateTimer?.invalidate()
+        updateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.updateStatusItem()
+        }
     }
 }

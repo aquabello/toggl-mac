@@ -16,6 +16,10 @@ class TimerViewModel {
         DateHelpers.formattedElapsedTime(elapsedTime)
     }
 
+    var currentStartTime: Date? {
+        timerService.currentTimer?.startTime
+    }
+
     init(modelContext: ModelContext) {
         self.timerService = TimerService(modelContext: modelContext)
         restore()

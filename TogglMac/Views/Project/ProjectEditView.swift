@@ -6,54 +6,85 @@ struct ProjectEditView: View {
     let onCancel: () -> Void
 
     @State private var name: String = ""
-    @State private var selectedColor: String = "FF6B6B"
+    @State private var selectedColor: String = "E57CD8"
 
-    private let colorPalette = [
-        "FF6B6B", "4ECDC4", "45B7D1", "96CEB4",
-        "FFEAA7", "DDA0DD", "98D8C8", "F7DC6F",
-        "BB8FCE", "85C1E9", "F0B27A", "AED6F1"
-    ]
+    private let colorPalette = TogglTheme.projectColors
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(project == nil ? "새 프로젝트" : "프로젝트 편집")
-                .font(.headline)
+        VStack(alignment: .leading, spacing: 14) {
+            Text(project == nil ? "New project" : "Edit project")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(TogglTheme.textPrimary)
 
-            TextField("프로젝트 이름", text: $name)
-                .textFieldStyle(.roundedBorder)
+            // Name input
+            VStack(alignment: .leading, spacing: 6) {
+                Text("NAME")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(TogglTheme.textTertiary)
+                    .tracking(0.8)
+                TextField("Project name", text: $name)
+                    .textFieldStyle(.plain)
+                    .font(.system(size: 13))
+                    .foregroundStyle(TogglTheme.textPrimary)
+                    .togglInput()
+            }
 
-            Text("색상")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+            // Color palette
+            VStack(alignment: .leading, spacing: 8) {
+                Text("COLOR")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(TogglTheme.textTertiary)
+                    .tracking(0.8)
 
-            LazyVGrid(columns: Array(repeating: GridItem(.fixed(28)), count: 6), spacing: 8) {
-                ForEach(colorPalette, id: \.self) { color in
-                    Circle()
-                        .fill(Color(hex: color))
-                        .frame(width: 24, height: 24)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.primary, lineWidth: selectedColor == color ? 2 : 0)
-                        )
-                        .onTapGesture {
-                            selectedColor = color
-                        }
+                LazyVGrid(columns: Array(repeating: GridItem(.fixed(30)), count: 6), spacing: 8) {
+                    ForEach(colorPalette, id: \.self) { color in
+                        Circle()
+                            .fill(Color(hex: color))
+                            .frame(width: 26, height: 26)
+                            .overlay(
+                                Circle()
+                                    .stroke(.white, lineWidth: selectedColor == color ? 2.5 : 0)
+                            )
+                            .shadow(color: selectedColor == color ? Color(hex: color).opacity(0.5) : .clear, radius: 4)
+                            .onTapGesture {
+                                selectedColor = color
+                            }
+                    }
                 }
             }
 
+            Rectangle()
+                .fill(TogglTheme.divider)
+                .frame(height: 1)
+
+            // Actions
             HStack {
-                Button("취소", action: onCancel)
+                Button("Cancel") {
+                    onCancel()
+                }
+                .foregroundStyle(TogglTheme.textSecondary)
+
                 Spacer()
-                Button("저장") {
+
+                Button(action: {
                     guard !name.isEmpty else { return }
                     onSave(name, selectedColor)
+                }) {
+                    Text("Save")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 6)
+                        .background(name.isEmpty ? TogglTheme.textTertiary : TogglTheme.accentPink)
+                        .cornerRadius(6)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.plain)
                 .disabled(name.isEmpty)
             }
         }
-        .padding()
-        .frame(width: 250)
+        .padding(18)
+        .frame(width: 260)
+        .background(TogglTheme.backgroundTertiary)
         .onAppear {
             if let project {
                 name = project.name

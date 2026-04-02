@@ -11,29 +11,64 @@ struct WeekHeaderView: View {
                 .frame(width: 50)
 
             ForEach(days, id: \.self) { day in
-                VStack(spacing: 2) {
-                    Text(DateHelpers.dayOfWeekString(day))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                let isToday = DateHelpers.isToday(day)
 
-                    Text("\(DateHelpers.dayNumber(day))")
-                        .font(.title2)
-                        .fontWeight(DateHelpers.isToday(day) ? .bold : .regular)
-                        .foregroundStyle(DateHelpers.isToday(day) ? .blue : .primary)
+                HStack(spacing: 0) {
+                    // Manage +/- buttons area (left side)
+                    HStack(spacing: 4) {
+                        if isToday {
+                            Button(action: {}) {
+                                Image(systemName: "minus")
+                                    .font(.system(size: 8, weight: .bold))
+                                    .foregroundStyle(TogglTheme.textTertiary)
+                            }
+                            .buttonStyle(.plain)
 
-                    if let total = dailyTotals[DateHelpers.dayStart(for: day)], total > 0 {
-                        Text(DateHelpers.formattedElapsedTime(total))
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
-                    } else {
-                        Text("0:00:00")
-                            .font(.caption2)
-                            .foregroundStyle(.tertiary)
+                            Button(action: {}) {
+                                Image(systemName: "plus")
+                                    .font(.system(size: 8, weight: .bold))
+                                    .foregroundStyle(TogglTheme.textTertiary)
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
+                    .frame(width: 30)
+
+                    Spacer()
+
+                    // Day info
+                    VStack(spacing: 2) {
+                        // Day number + day name
+                        HStack(spacing: 6) {
+                            Text("\(DateHelpers.dayNumber(day))")
+                                .font(.system(size: 22, weight: isToday ? .bold : .regular).monospacedDigit())
+                                .foregroundStyle(isToday ? TogglTheme.todayHighlight : TogglTheme.textPrimary)
+
+                            Text(DateHelpers.dayOfWeekString(day).uppercased())
+                                .font(.system(size: 10, weight: .bold))
+                                .foregroundStyle(isToday ? TogglTheme.todayHighlight : TogglTheme.textTertiary)
+                                .tracking(0.5)
+                        }
+
+                        // Daily total
+                        if let total = dailyTotals[DateHelpers.dayStart(for: day)], total > 0 {
+                            Text(DateHelpers.formattedElapsedTime(total))
+                                .font(.system(size: 11).monospacedDigit())
+                                .foregroundStyle(TogglTheme.weekTotalText)
+                        } else {
+                            Text("0:00:00")
+                                .font(.system(size: 11).monospacedDigit())
+                                .foregroundStyle(TogglTheme.textTertiary.opacity(0.5))
+                        }
+                    }
+
+                    Spacer()
+                    Spacer().frame(width: 30)
                 }
                 .frame(maxWidth: .infinity)
             }
         }
         .padding(.vertical, 8)
+        .background(TogglTheme.calendarHeaderBg)
     }
 }
