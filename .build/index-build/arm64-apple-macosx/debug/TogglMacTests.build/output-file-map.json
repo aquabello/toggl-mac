@@ -1,0 +1,103 @@
+{
+  "": {
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/master.swiftdeps"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/Models/ProjectTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/Models/TimeEntryTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/Models/TimerStateTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerStateTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerStateTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerStateTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerStateTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerStateTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/Services/HotkeyServiceTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/HotkeyServiceTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/HotkeyServiceTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/HotkeyServiceTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/HotkeyServiceTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/HotkeyServiceTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/Services/ProjectServiceTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectServiceTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectServiceTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectServiceTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectServiceTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectServiceTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/Services/TimeEntryServiceTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryServiceTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryServiceTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryServiceTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryServiceTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryServiceTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/Services/TimerServiceTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerServiceTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerServiceTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerServiceTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerServiceTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerServiceTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/Services/UndoServiceTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/UndoServiceTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/UndoServiceTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/UndoServiceTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/UndoServiceTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/UndoServiceTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/TestHelpers.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TestHelpers.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TestHelpers.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TestHelpers~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TestHelpers.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TestHelpers.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/Utilities/DateHelpersTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/DateHelpersTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/DateHelpersTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/DateHelpersTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/DateHelpersTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/DateHelpersTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/ViewModels/CalendarViewModelTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/CalendarViewModelTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/CalendarViewModelTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/CalendarViewModelTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/CalendarViewModelTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/CalendarViewModelTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/ViewModels/ProjectViewModelTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectViewModelTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectViewModelTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectViewModelTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectViewModelTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/ProjectViewModelTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/ViewModels/TimeEntryViewModelTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryViewModelTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryViewModelTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryViewModelTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryViewModelTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimeEntryViewModelTests.dia"
+  },
+  "/Users/nhn/Documents/70_ai/toggl-mac/TogglMacTests/ViewModels/TimerViewModelTests.swift": {
+    "dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerViewModelTests.d",
+    "object": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerViewModelTests.swift.o",
+    "swiftmodule": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerViewModelTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerViewModelTests.swiftdeps",
+    "diagnostics": "/Users/nhn/Documents/70_ai/toggl-mac/.build/index-build/arm64-apple-macosx/debug/TogglMacTests.build/TimerViewModelTests.dia"
+  }
+}
