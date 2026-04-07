@@ -8,6 +8,15 @@ class TimerViewModel {
     var elapsedTime: TimeInterval = 0
     var taskDescription: String = ""
     var selectedProject: Project?
+    var todayCompletedTime: TimeInterval = 0
+
+    var todayTotalTime: TimeInterval {
+        todayCompletedTime + (isRunning ? elapsedTime : 0)
+    }
+
+    var todayProgress: Double {
+        min(todayTotalTime / (8 * 3600), 1.0)
+    }
 
     private var timerService: TimerService
     private var displayTimer: AnyCancellable?
@@ -45,6 +54,14 @@ class TimerViewModel {
             stop()
         } else {
             start()
+        }
+    }
+
+    func updateStartTime(_ newStart: Date) {
+        if let timer = timerService.currentTimer {
+            timer.startTime = newStart
+            try? timer.modelContext?.save()
+            elapsedTime = timer.elapsedTime
         }
     }
 

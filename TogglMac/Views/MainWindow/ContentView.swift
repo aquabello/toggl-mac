@@ -8,6 +8,8 @@ struct ContentView: View {
 
     @State private var isShowingManualEntry = false
     @State private var manualEntryStartTime: Date? = nil
+    @State private var sidebarWidth: CGFloat = 200
+    @State private var isEditingActiveTimer = false
 
     var body: some View {
         HStack(spacing: 0) {
@@ -19,10 +21,26 @@ struct ContentView: View {
                     projectViewModel.selectedProject = project
                 }
             )
+            .frame(width: sidebarWidth)
 
             Rectangle()
                 .fill(TogglTheme.divider)
-                .frame(width: 1)
+                .frame(width: 3)
+                .contentShape(Rectangle().size(width: 9, height: .infinity))
+                .onHover { hovering in
+                    if hovering {
+                        NSCursor.resizeLeftRight.push()
+                    } else {
+                        NSCursor.pop()
+                    }
+                }
+                .gesture(
+                    DragGesture(minimumDistance: 1)
+                        .onChanged { value in
+                            let newWidth = sidebarWidth + value.translation.width
+                            sidebarWidth = min(max(newWidth, 140), 360)
+                        }
+                )
 
             // Main content
             VStack(spacing: 0) {
@@ -31,14 +49,30 @@ struct ContentView: View {
                     calendarViewModel: calendarViewModel,
                     activeTimerStart: timerViewModel.isRunning ? timerViewModel.currentStartTime : nil,
                     activeTimerProject: timerViewModel.isRunning ? timerViewModel.selectedProject : nil,
+                    activeTimerDescription: timerViewModel.isRunning ? timerViewModel.taskDescription : nil,
                     onEntryTap: { entry in
                         timeEntryViewModel.selectEntry(entry)
+                    },
+                    onEntryDelete: { entry in
+                        timeEntryViewModel.deleteEntry(entry)
+                    },
+                    onEntryMove: { entry, newStart in
+                        timeEntryViewModel.moveEntry(entry, newStartTime: newStart)
+                    },
+                    onActiveTimerTap: {
+                        isEditingActiveTimer = true
                     },
                     onEmptySlotClick: { date in
                         manualEntryStartTime = date
                         isShowingManualEntry = true
                     }
                 )
+            }
+            .onAppear {
+                updateTodayTotal()
+            }
+            .onChange(of: calendarViewModel.currentEntries.count) {
+                updateTodayTotal()
             }
 
             // Right panel (Goals & Favorites)
@@ -50,17 +84,25 @@ struct ContentView: View {
         }
         .frame(minWidth: 900, minHeight: 600)
         .background(TogglTheme.backgroundSecondary)
-        .overlay(alignment: .trailing) {
+        .overlay {
             if timeEntryViewModel.isEditingEntry, let entry = timeEntryViewModel.selectedEntry {
-                EntryEditPanel(
+                // 배경 딤 처리 + 탭으로 닫기
+                Color.black.opacity(0.2)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        timeEntryViewModel.dismissEdit()
+                    }
+
+                EntryEditPopover(
                     entry: entry,
-                    projects: projectViewModel.projects,
+                    isActiveTimer: false,
                     onUpdateDescription: { desc in
                         timeEntryViewModel.updateDescription(desc)
                     },
-                    onUpdateProject: { project in
-                        timeEntryViewModel.updateProject(project)
+                    onUpdateTime: { start, end in
+                        timeEntryViewModel.updateTime(entry, startTime: start, endTime: end)
                     },
+                    onStop: { },
                     onDelete: {
                         timeEntryViewModel.deleteEntry(entry)
                     },
@@ -68,8 +110,43 @@ struct ContentView: View {
                         timeEntryViewModel.dismissEdit()
                     }
                 )
-                .shadow(color: Color.black.opacity(0.4), radius: 12)
-                .padding(.top, AppConstants.UI.timerBarHeight)
+                .id(entry.id)
+            }
+        }
+        .overlay {
+            if isEditingActiveTimer, timerViewModel.isRunning, let startTime = timerViewModel.currentStartTime {
+                Color.black.opacity(0.2)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        isEditingActiveTimer = false
+                    }
+
+                // 진행 중 타이머용 임시 TimeEntry
+                let tempEntry = TimeEntry(
+                    taskDescription: timerViewModel.taskDescription,
+                    startTime: startTime,
+                    endTime: Date(),
+                    project: timerViewModel.selectedProject
+                )
+
+                EntryEditPopover(
+                    entry: tempEntry,
+                    isActiveTimer: true,
+                    onUpdateDescription: { desc in
+                        timerViewModel.taskDescription = desc
+                    },
+                    onUpdateTime: { newStart, _ in
+                        timerViewModel.updateStartTime(newStart)
+                    },
+                    onStop: {
+                        timerViewModel.toggle()
+                        isEditingActiveTimer = false
+                    },
+                    onDelete: nil,
+                    onDismiss: {
+                        isEditingActiveTimer = false
+                    }
+                )
             }
         }
         .sheet(isPresented: $isShowingManualEntry) {
@@ -108,6 +185,13 @@ struct ContentView: View {
             .keyboardShortcut("z", modifiers: .command)
             .hidden()
         )
+    }
+
+    // MARK: - Today Total
+
+    private func updateTodayTotal() {
+        let todayEntries = calendarViewModel.entriesForDay(Date())
+        timerViewModel.todayCompletedTime = todayEntries.reduce(0) { $0 + $1.duration }
     }
 
     // MARK: - Right Panel (Goals & Favorites)

@@ -58,6 +58,14 @@ class TimeEntryViewModel {
         )
     }
 
+    func updateTime(_ entry: TimeEntry, startTime: Date, endTime: Date) {
+        timeEntryService.updateTime(entry, startTime: startTime, endTime: endTime)
+    }
+
+    func moveEntry(_ entry: TimeEntry, newStartTime: Date) {
+        timeEntryService.moveEntry(entry, newStartTime: newStartTime)
+    }
+
     func detectOverlaps(start: Date, end: Date) -> [TimeEntry] {
         timeEntryService.detectOverlaps(start: start, end: end)
     }

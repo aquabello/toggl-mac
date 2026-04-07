@@ -1,15 +1,19 @@
 import SwiftUI
+import AppKit
 
 struct EntryEditPanel: View {
     let entry: TimeEntry
     let projects: [Project]
     let onUpdateDescription: (String) -> Void
     let onUpdateProject: (Project?) -> Void
+    let onUpdateTime: ((Date, Date) -> Void)?
     let onDelete: () -> Void
     let onDismiss: () -> Void
 
     @State private var editingDescription: String = ""
     @State private var selectedProjectId: UUID?
+    @State private var startTime: Date = Date()
+    @State private var endTime: Date = Date()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -35,14 +39,17 @@ struct EntryEditPanel: View {
                 .frame(height: 1)
 
             // Task description
-            TextField("Task name", text: $editingDescription)
-                .textFieldStyle(.plain)
-                .font(.system(size: 13))
-                .foregroundStyle(TogglTheme.textPrimary)
-                .togglInput()
-                .onSubmit {
-                    onUpdateDescription(editingDescription)
-                }
+            VStack(alignment: .leading, spacing: 6) {
+                Text("DESCRIPTION")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(TogglTheme.textTertiary)
+                    .tracking(0.8)
+                TextField("Task name", text: $editingDescription)
+                    .textFieldStyle(.plain)
+                    .font(.system(size: 13))
+                    .foregroundStyle(TogglTheme.textPrimary)
+                    .togglInput()
+            }
 
             // Project picker
             VStack(alignment: .leading, spacing: 6) {
@@ -70,16 +77,30 @@ struct EntryEditPanel: View {
                 }
             }
 
-            // Time info
+            // Time pickers
             HStack(spacing: 16) {
-                timeInfoBlock(label: "START", value: entry.startTime)
-                timeInfoBlock(label: "END", value: entry.endTime)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("START")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundStyle(TogglTheme.textTertiary)
+                        .tracking(0.8)
+                    DatePicker("", selection: $startTime, displayedComponents: [.hourAndMinute])
+                        .labelsHidden()
+                }
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("END")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundStyle(TogglTheme.textTertiary)
+                        .tracking(0.8)
+                    DatePicker("", selection: $endTime, displayedComponents: [.hourAndMinute])
+                        .labelsHidden()
+                }
                 VStack(alignment: .leading, spacing: 4) {
                     Text("DURATION")
                         .font(.system(size: 10, weight: .bold))
                         .foregroundStyle(TogglTheme.textTertiary)
                         .tracking(0.8)
-                    Text(DateHelpers.formattedElapsedTime(entry.duration))
+                    Text(DateHelpers.formattedElapsedTime(endTime.timeIntervalSince(startTime)))
                         .font(.system(size: 13, weight: .medium).monospacedDigit())
                         .foregroundStyle(TogglTheme.textPrimary)
                 }
@@ -89,17 +110,32 @@ struct EntryEditPanel: View {
                 .fill(TogglTheme.divider)
                 .frame(height: 1)
 
-            // Delete button
-            Button(action: onDelete) {
-                HStack(spacing: 6) {
-                    Image(systemName: "trash")
-                        .font(.system(size: 11))
-                    Text("Delete")
-                        .font(.system(size: 12))
+            // Action buttons
+            HStack {
+                Button(action: onDelete) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "trash")
+                            .font(.system(size: 11))
+                        Text("Delete")
+                            .font(.system(size: 12))
+                    }
+                    .foregroundStyle(TogglTheme.accentRed)
                 }
-                .foregroundStyle(TogglTheme.accentRed)
+                .buttonStyle(.plain)
+
+                Spacer()
+
+                Button(action: saveChanges) {
+                    Text("Save")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 6)
+                        .background(TogglTheme.accentPink)
+                        .cornerRadius(6)
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
         }
         .padding(20)
         .frame(width: 320)
@@ -108,18 +144,45 @@ struct EntryEditPanel: View {
         .onAppear {
             editingDescription = entry.taskDescription
             selectedProjectId = entry.project?.id
+            startTime = entry.startTime
+            endTime = entry.endTime
         }
     }
 
-    private func timeInfoBlock(label: String, value: Date) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(label)
-                .font(.system(size: 10, weight: .bold))
-                .foregroundStyle(TogglTheme.textTertiary)
-                .tracking(0.8)
-            Text(value, style: .time)
-                .font(.system(size: 13, weight: .medium))
-                .foregroundStyle(TogglTheme.textPrimary)
+    private func saveChanges() {
+        // 한글 조합 중인 입력을 강제 완성 (first responder 해제)
+        NSApp.keyWindow?.makeFirstResponder(nil)
+
+        // 약간의 딜레이 후 저장 (조합 완성이 editingDescription에 반영되도록)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            performSave()
         }
+    }
+
+    private func performSave() {
+        onUpdateDescription(editingDescription)
+
+        // Preserve original date, only update hours/minutes
+        let calendar = Calendar.current
+        let originalDate = entry.startTime
+        var startComps = calendar.dateComponents([.hour, .minute], from: startTime)
+        var endComps = calendar.dateComponents([.hour, .minute], from: endTime)
+
+        let dayComps = calendar.dateComponents([.year, .month, .day], from: originalDate)
+        startComps.year = dayComps.year
+        startComps.month = dayComps.month
+        startComps.day = dayComps.day
+        endComps.year = dayComps.year
+        endComps.month = dayComps.month
+        endComps.day = dayComps.day
+
+        if let newStart = calendar.date(from: startComps),
+           let newEnd = calendar.date(from: endComps),
+           newStart < newEnd,
+           (newStart != entry.startTime || newEnd != entry.endTime) {
+            onUpdateTime?(newStart, newEnd)
+        }
+
+        onDismiss()
     }
 }

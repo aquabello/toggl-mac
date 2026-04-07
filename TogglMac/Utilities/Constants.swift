@@ -19,6 +19,6 @@ enum AppConstants {
     enum UI {
         static let sidebarWidth: CGFloat = 200.0
         static let timerBarHeight: CGFloat = 60.0
-        static let timeBlockMinHeight: CGFloat = 20.0
+        static let timeBlockMinHeight: CGFloat = 30.0
     }
 }

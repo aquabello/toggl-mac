@@ -11,7 +11,6 @@ struct TimerBarView: View {
                     .textFieldStyle(.plain)
                     .font(.system(size: 14))
                     .foregroundStyle(TogglTheme.textPrimary)
-                    .disabled(viewModel.isRunning)
 
                 if viewModel.isRunning {
                     Text(viewModel.taskDescription.isEmpty ? "No description" : "")
@@ -23,7 +22,7 @@ struct TimerBarView: View {
 
             Spacer()
 
-            // Right side: icon group + timer + stop button
+            // Right side: icon group + today label + timer + stop button
             HStack(spacing: 16) {
                 // Icon group
                 HStack(spacing: 12) {
@@ -32,6 +31,13 @@ struct TimerBarView: View {
                     iconButton("dollarsign.circle", tooltip: "Billable")
                 }
                 .padding(.trailing, 8)
+
+                // Today's total time
+                if viewModel.todayTotalTime > 0 {
+                    Text("Today \(DateHelpers.formattedElapsedTime(viewModel.todayTotalTime))")
+                        .font(.system(size: 10))
+                        .foregroundStyle(TogglTheme.textTertiary)
+                }
 
                 // Timer display
                 Text(viewModel.formattedElapsedTime)
@@ -67,9 +73,31 @@ struct TimerBarView: View {
         .padding(.vertical, 14)
         .background(TogglTheme.timerBarBackground)
         .overlay(alignment: .bottom) {
-            Rectangle()
-                .fill(TogglTheme.divider)
-                .frame(height: 1)
+            VStack(spacing: 0) {
+                // Daily progress bar
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading) {
+                        Rectangle()
+                            .fill(TogglTheme.surfaceCard)
+                            .frame(height: 3)
+                        Rectangle()
+                            .fill(
+                                LinearGradient(
+                                    colors: [TogglTheme.accentPink.opacity(0.7), TogglTheme.accentPink],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .frame(width: geometry.size.width * viewModel.todayProgress, height: 3)
+                            .animation(.linear(duration: 1.0), value: viewModel.todayProgress)
+                    }
+                }
+                .frame(height: 3)
+
+                Rectangle()
+                    .fill(TogglTheme.divider)
+                    .frame(height: 1)
+            }
         }
     }
 

@@ -60,6 +60,21 @@ class TimeEntryService {
         return entry
     }
 
+    func updateTime(_ entry: TimeEntry, startTime: Date, endTime: Date) {
+        entry.startTime = startTime
+        entry.endTime = endTime
+        entry.updatedAt = Date()
+        try? modelContext.save()
+    }
+
+    func moveEntry(_ entry: TimeEntry, newStartTime: Date) {
+        let duration = entry.endTime.timeIntervalSince(entry.startTime)
+        entry.startTime = newStartTime
+        entry.endTime = newStartTime.addingTimeInterval(duration)
+        entry.updatedAt = Date()
+        try? modelContext.save()
+    }
+
     func detectOverlaps(start: Date, end: Date) -> [TimeEntry] {
         let descriptor = FetchDescriptor<TimeEntry>(
             predicate: #Predicate<TimeEntry> { entry in

@@ -11,9 +11,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        NSApp.setActivationPolicy(.regular)
+    }
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupStatusItem()
         setupHotkey()
+
+        // SwiftUI WindowGroup 윈도우가 생성된 후 Key Window로 활성화
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            NSApp.activate(ignoringOtherApps: true)
+            for window in NSApp.windows where window.isVisible {
+                window.makeKeyAndOrderFront(nil)
+            }
+        }
     }
 
     func applicationWillTerminate(_ notification: Notification) {

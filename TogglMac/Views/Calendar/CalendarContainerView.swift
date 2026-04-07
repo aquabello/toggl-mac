@@ -4,7 +4,11 @@ struct CalendarContainerView: View {
     var calendarViewModel: CalendarViewModel
     var activeTimerStart: Date?
     var activeTimerProject: Project?
+    var activeTimerDescription: String?
     let onEntryTap: (TimeEntry) -> Void
+    let onEntryDelete: ((TimeEntry) -> Void)?
+    let onEntryMove: ((TimeEntry, Date) -> Void)?
+    let onActiveTimerTap: (() -> Void)?
     let onEmptySlotClick: (Date) -> Void
 
     var body: some View {
@@ -162,7 +166,11 @@ struct CalendarContainerView: View {
                         entries: calendarViewModel.entriesForDay(day),
                         activeTimerStart: activeTimerStart,
                         activeTimerProject: activeTimerProject,
+                        activeTimerDescription: activeTimerDescription,
                         onEntryTap: onEntryTap,
+                        onEntryDelete: onEntryDelete,
+                        onEntryMove: onEntryMove,
+                        onActiveTimerTap: onActiveTimerTap,
                         onEmptySlotClick: onEmptySlotClick
                     )
                     if day != days.last {
@@ -195,7 +203,11 @@ struct CalendarContainerView: View {
                 entries: calendarViewModel.currentEntries,
                 activeTimerStart: activeTimerStart,
                 activeTimerProject: activeTimerProject,
+                activeTimerDescription: activeTimerDescription,
                 onEntryTap: onEntryTap,
+                onEntryDelete: onEntryDelete,
+                onEntryMove: onEntryMove,
+                onActiveTimerTap: onActiveTimerTap,
                 onEmptySlotClick: onEmptySlotClick
             )
         }

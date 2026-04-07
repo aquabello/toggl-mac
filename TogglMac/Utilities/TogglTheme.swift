@@ -1,19 +1,19 @@
 import SwiftUI
 
-// MARK: - Toggl Track Dark Purple Theme
+// MARK: - Toggl Track Dark Charcoal Theme
 
 enum TogglTheme {
     // MARK: - Background Colors
-    static let backgroundPrimary = Color(hex: "1A0726")    // Deepest background
-    static let backgroundSecondary = Color(hex: "2C1338")  // Main content area
-    static let backgroundTertiary = Color(hex: "3D1A4A")   // Elevated surfaces
-    static let backgroundSidebar = Color(hex: "1E0A2E")    // Sidebar background
+    static let backgroundPrimary = Color(hex: "161619")    // Deepest background
+    static let backgroundSecondary = Color(hex: "1E1E24")  // Main content area
+    static let backgroundTertiary = Color(hex: "2A2A32")   // Elevated surfaces
+    static let backgroundSidebar = Color(hex: "1A1A1F")    // Sidebar background
 
     // MARK: - Surface Colors
-    static let surfaceCard = Color(hex: "3A1648")          // Card/panel background
-    static let surfaceHover = Color(hex: "4A2058")         // Hover state
-    static let surfaceSelected = Color(hex: "5A2868")      // Selected state
-    static let surfaceInput = Color(hex: "2A1236")         // Input field background
+    static let surfaceCard = Color(hex: "282830")          // Card/panel background
+    static let surfaceHover = Color(hex: "32323C")         // Hover state
+    static let surfaceSelected = Color(hex: "3A3A46")      // Selected state
+    static let surfaceInput = Color(hex: "222228")         // Input field background
 
     // MARK: - Accent Colors
     static let accentPink = Color(hex: "E57CD8")           // Primary accent (Toggl pink)
@@ -24,33 +24,33 @@ enum TogglTheme {
 
     // MARK: - Text Colors
     static let textPrimary = Color.white
-    static let textSecondary = Color(hex: "B8A0C8")        // Muted text
-    static let textTertiary = Color(hex: "7A6088")         // Very muted text
-    static let textPlaceholder = Color(hex: "6A5078")      // Placeholder text
+    static let textSecondary = Color(hex: "A0A0B0")        // Muted text
+    static let textTertiary = Color(hex: "6A6A78")         // Very muted text
+    static let textPlaceholder = Color(hex: "585868")      // Placeholder text
 
     // MARK: - Border & Divider
-    static let divider = Color(hex: "3D1A4A").opacity(0.8)
-    static let border = Color(hex: "4A2058")
-    static let gridLine = Color(hex: "3D1A4A").opacity(0.5)
+    static let divider = Color(hex: "2A2A32").opacity(0.8)
+    static let border = Color(hex: "32323C")
+    static let gridLine = Color(hex: "2A2A32").opacity(0.5)
 
     // MARK: - Timer Bar
-    static let timerBarBackground = Color(hex: "2C1338")
+    static let timerBarBackground = Color(hex: "1E1E24")
     static let timerStopButton = Color(hex: "E74C3C")
     static let timerRunningText = Color(hex: "2ECC71")
 
     // MARK: - Calendar
-    static let calendarHeaderBg = Color(hex: "2C1338")
+    static let calendarHeaderBg = Color(hex: "1E1E24")
     static let currentTimeIndicator = Color(hex: "E57CD8")
     static let todayHighlight = Color(hex: "E57CD8")
-    static let weekTotalText = Color(hex: "B8A0C8")
+    static let weekTotalText = Color(hex: "A0A0B0")
 
     // MARK: - Sidebar Section Labels
-    static let sectionLabel = Color(hex: "7A6088")
+    static let sectionLabel = Color(hex: "6A6A78")
 
     // MARK: - Tab Bar
     static let tabActive = Color(hex: "E57CD8")
-    static let tabInactive = Color(hex: "7A6088")
-    static let tabBackground = Color(hex: "3D1A4A")
+    static let tabInactive = Color(hex: "6A6A78")
+    static let tabBackground = Color(hex: "2A2A32")
 
     // MARK: - Project Colors (vibrant for dark bg)
     static let projectColors = [

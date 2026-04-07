@@ -27,11 +27,13 @@ struct TogglMacApp: App {
                 configurations: [modelConfiguration]
             )
             modelContainer = container
-            let context = ModelContext(container)
-            timerViewModel = TimerViewModel(modelContext: ModelContext(container))
-            projectViewModel = ProjectViewModel(modelContext: context)
-            calendarViewModel = CalendarViewModel(modelContext: ModelContext(container))
-            timeEntryViewModel = TimeEntryViewModel(modelContext: ModelContext(container))
+            // 모든 ViewModel이 동일한 ModelContext를 공유해야
+            // 삭제/추가 시 캘린더 등 다른 뷰에 즉시 반영됨
+            let sharedContext = ModelContext(container)
+            timerViewModel = TimerViewModel(modelContext: sharedContext)
+            projectViewModel = ProjectViewModel(modelContext: sharedContext)
+            calendarViewModel = CalendarViewModel(modelContext: sharedContext)
+            timeEntryViewModel = TimeEntryViewModel(modelContext: sharedContext)
         } catch {
             fatalError("Could not initialize ModelContainer: \(error)")
         }
